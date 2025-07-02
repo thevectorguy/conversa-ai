@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiztelAI - Chat Transcript Analysis</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-black bg-opacity-50 backdrop-blur-lg border-b border-gray-700">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-brain text-3xl text-blue-400"></i>
+                    <h1 class="text-2xl font-bold text-white">BiztelAI</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div id="user-info" class="text-white hidden">
+                        <span id="username"></span>
+                        <button id="logout-btn" class="ml-4 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                        </button>
+                    </div>
+                    <div id="auth-buttons" class="space-x-2">
+                        <button id="login-btn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition">
+                            <i class="fas fa-sign-in-alt mr-2"></i>Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8">
+        <!-- Login Modal -->
+        <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 border border-gray-700">
+                <h2 class="text-2xl font-bold text-white mb-6 text-center">Login to BiztelAI</h2>
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-300 mb-2">Username</label>
+                        <input type="text" id="username-input" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none" placeholder="Enter username">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2">Password</label>
+                        <input type="password" id="password-input" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none" placeholder="Enter password">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition">
+                        <i class="fas fa-sign-in-alt mr-2"></i>Login
+                    </button>
+                </form>
+                <div class="mt-4 text-center">
+                    <button id="close-modal" class="text-gray-400 hover:text-white">Cancel</button>
+                </div>
+                <div class="mt-6 text-sm text-gray-400 text-center">
+                    <p>Demo Credentials:</p>
+                    <p>Username: <code class="bg-gray-700 px-2 py-1 rounded">demo</code> | Password: <code class="bg-gray-700 px-2 py-1 rounded">demo123</code></p>
+                    <p>Admin: <code class="bg-gray-700 px-2 py-1 rounded">admin</code> | Password: <code class="bg-gray-700 px-2 py-1 rounded">admin123</code></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div id="dashboard-content" class="hidden">
+            <!-- Header Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-6 text-white transform hover:scale-105 transition">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-blue-100">Total Transcripts</p>
+                            <p id="total-transcripts" class="text-3xl font-bold">-</p>
+                        </div>
+                        <i class="fas fa-comments text-4xl text-blue-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-6 text-white transform hover:scale-105 transition">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-green-100">Total Messages</p>
+                            <p id="total-messages" class="text-3xl font-bold">-</p>
+                        </div>
+                        <i class="fas fa-message text-4xl text-green-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl p-6 text-white transform hover:scale-105 transition">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-purple-100">Unique Articles</p>
+                            <p id="unique-articles" class="text-3xl font-bold">-</p>
+                        </div>
+                        <i class="fas fa-newspaper text-4xl text-purple-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-orange-600 to-orange-700 rounded-2xl p-6 text-white transform hover:scale-105 transition">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-orange-100">Avg Messages/Chat</p>
+                            <p id="avg-messages" class="text-3xl font-bold">-</p>
+                        </div>
+                        <i class="fas fa-chart-line text-4xl text-orange-200"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Transcript Analysis -->
+                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <i class="fas fa-search-plus mr-3 text-blue-400"></i>
+                        Transcript Analysis
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex flex-col space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-white font-medium">Input Method:</span>
+                                <div class="flex space-x-4">
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input type="radio" name="input-method" value="paste" class="form-radio text-blue-500" checked>
+                                        <span class="ml-2 text-gray-300 hover:text-white transition">
+                                            <i class="fas fa-paste mr-1"></i>Paste JSON
+                                        </span>
+                                    </label>
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input type="radio" name="input-method" value="upload" class="form-radio text-blue-500">
+                                        <span class="ml-2 text-gray-300 hover:text-white transition">
+                                            <i class="fas fa-upload mr-1"></i>Upload File
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div id="paste-container">
+                                <div class="relative">
+                                    <textarea id="transcript-input" 
+                                        class="w-full h-48 px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none resize-none font-mono text-sm" 
+                                        placeholder="Paste your transcript JSON here...
+
+Example format:
+{
+  &quot;transcript_1&quot;: {
+    &quot;article_url&quot;: &quot;https://example.com/article&quot;,
+    &quot;content&quot;: [
+      {
+        &quot;message&quot;: &quot;Hello, how are you?&quot;,
+        &quot;agent&quot;: &quot;agent_1&quot;,
+        &quot;sentiment&quot;: &quot;Positive&quot;
+      }
+    ]
+  }
+}"></textarea>
+                                    <div class="absolute top-2 right-2">
+                                        <button id="clear-input" class="text-gray-400 hover:text-white transition" title="Clear input">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="upload-container" class="hidden">
+                                <div class="w-full px-4 py-6 bg-gray-700 text-white rounded-lg border border-gray-600 border-dashed flex flex-col items-center justify-center">
+                                    <i class="fas fa-file-upload text-3xl mb-2 text-gray-400"></i>
+                                    <p class="text-gray-400 mb-4">Drag & drop your JSON file or click to browse</p>
+                                    <input type="file" id="file-input" accept=".json" class="hidden">
+                                    <button id="browse-btn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition">
+                                        Browse Files
+                                    </button>
+                                    <p id="file-name" class="mt-2 text-sm text-gray-400 hidden"></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button id="analyze-btn" 
+                                class="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg font-semibold transition transform hover:scale-105">
+                            <i class="fas fa-brain mr-2"></i>Analyze Transcript
+                        </button>
+                    </div>
+                    
+                    <!-- Analysis Results -->
+                    <div id="analysis-results" class="mt-6 hidden">
+                        <h3 class="text-lg font-semibold text-white mb-4">Analysis Results</h3>
+                        <div class="space-y-4" id="results-content"></div>
+                    </div>
+                </div>
+
+                <!-- Dataset Summary -->
+                <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                        <i class="fas fa-chart-pie mr-3 text-green-400"></i>
+                        Dataset Summary
+                    </h2>
+                    <div id="summary-content" class="space-y-4">
+                        <div class="text-center text-gray-400">
+                            <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                            <p>Loading summary...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent Statistics -->
+            <div class="mt-8 bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <i class="fas fa-users mr-3 text-purple-400"></i>
+                    Agent Statistics
+                </h2>
+                <div id="agent-stats" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="text-center text-gray-400">
+                        <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                        <p>Loading agent statistics...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="text-center text-white">
+            <div class="max-w-4xl mx-auto">
+                <i class="fas fa-brain text-8xl text-blue-400 mb-8"></i>
+                <h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    BiztelAI
+                </h1>
+                <p class="text-2xl text-gray-300 mb-8">
+                    Advanced AI-Driven Chat Transcript Analysis System
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                        <i class="fas fa-comments text-4xl text-blue-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Transcript Analysis</h3>
+                        <p class="text-gray-400">Analyze chat transcripts with advanced AI models</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                        <i class="fas fa-heart text-4xl text-red-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Sentiment Analysis</h3>
+                        <p class="text-gray-400">Understand emotional context and agent sentiments</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 border border-gray-700">
+                        <i class="fas fa-chart-bar text-4xl text-green-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Real-time Insights</h3>
+                        <p class="text-gray-400">Get instant analytics and performance metrics</p>
+                    </div>
+                </div>
+                <p class="text-xl text-gray-400">
+                    Please login to access the dashboard and start analyzing your data.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-40">
+        <div class="text-center text-white">
+            <i class="fas fa-brain fa-spin text-6xl text-blue-400 mb-4"></i>
+            <p class="text-xl">Processing your request...</p>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+version: "2"
+authtoken: 2vfvoxYVYaI3VkTwd0pdkWqNAjm_78xAib8VKdMLKkxvJWJrd
+tunnels:
+  biztelai:
+    addr: web:8000
+    proto: http
+    schemes: [https, http]
+    host_header: web:8000
+    inspect: true
+web_addr: 0.0.0.0:4040

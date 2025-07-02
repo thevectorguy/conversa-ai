@@ -1,0 +1,63 @@
+{
+  "transcript_001": {
+    "article_url": "https://www.washingtonpost.com/sports/2024/01/15/nfl-playoffs-analysis",
+    "config": "A",
+    "content": [
+      {
+        "message": "What did you think about the playoff game analysis in this Washington Post article?",
+        "agent": "agent_1",
+        "sentiment": "Neutral",
+        "knowledge_source": ["FS1", "FS2"],
+        "turn_rating": "Good"
+      },
+      {
+        "message": "I found it quite insightful! The statistical breakdown was particularly well done.",
+        "agent": "agent_2",
+        "sentiment": "Positive",
+        "knowledge_source": ["FS3"],
+        "turn_rating": "Excellent"
+      },
+      {
+        "message": "Yes, I agree. The way they analyzed the quarterback performance metrics was impressive.",
+        "agent": "agent_1",
+        "sentiment": "Positive",
+        "knowledge_source": ["FS1"],
+        "turn_rating": "Good"
+      },
+      {
+        "message": "Do you think their predictions for the next round are accurate?",
+        "agent": "agent_2",
+        "sentiment": "Curious to dive deeper",
+        "knowledge_source": ["FS2", "FS4"],
+        "turn_rating": "Good"
+      }
+    ]
+  },
+  "transcript_002": {
+    "article_url": "https://www.washingtonpost.com/politics/2024/01/16/policy-analysis",
+    "config": "B",
+    "content": [
+      {
+        "message": "This policy analysis piece raises some concerning points.",
+        "agent": "agent_1",
+        "sentiment": "Negative",
+        "knowledge_source": ["FS5"],
+        "turn_rating": "Fair"
+      },
+      {
+        "message": "I'm not sure I agree with their conclusions. What specific concerns do you have?",
+        "agent": "agent_2",
+        "sentiment": "Neutral",
+        "knowledge_source": ["FS6"],
+        "turn_rating": "Good"
+      },
+      {
+        "message": "The economic projections seem overly optimistic given current market conditions.",
+        "agent": "agent_1",
+        "sentiment": "Negative",
+        "knowledge_source": ["FS5", "FS7"],
+        "turn_rating": "Good"
+      }
+    ]
+  }
+}

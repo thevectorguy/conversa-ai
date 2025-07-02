@@ -1,0 +1,72 @@
+services:
+  web:
+    build: .
+    container_name: biztelai-web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - SECRET_KEY=${SECRET_KEY:-your-super-secret-key-change-in-production}
+      - DATA_PATH=data/BiztelAI_DS_Dataset_V1.json
+      - DEBUG=False
+      - LOG_LEVEL=INFO
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - biztelai-network
+
+  # Ngrok service for public URL sharing
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: biztelai-ngrok
+    restart: unless-stopped
+    command:
+      - "start"
+      - "--all"
+      - "--config"
+      - "/etc/ngrok.yml"
+    volumes:
+      - ./ngrok.yml:/etc/ngrok.yml
+    ports:
+      - "4040:4040"  # Ngrok web interface
+    depends_on:
+      - web
+    networks:
+      - biztelai-network
+    profiles:
+      - sharing
+
+  # Optional: Add a reverse proxy for production
+  nginx:
+    image: nginx:alpine
+    container_name: biztelai-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - web
+    restart: unless-stopped
+    networks:
+      - biztelai-network
+    profiles:
+      - production
+
+networks:
+  biztelai-network:
+    driver: bridge
+
+volumes:
+  data:
+  logs:
