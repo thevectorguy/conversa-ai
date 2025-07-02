@@ -105,8 +105,8 @@ ConversaAI is a sophisticated, production-ready platform designed to analyze con
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/biztel-ai.git
-   cd biztel-ai
+   git clone https://github.com/yourusername/conversa-ai.git
+   cd conversa-ai
    ```
 
 2. **Create virtual environment**
@@ -145,7 +145,7 @@ ConversaAI is a sophisticated, production-ready platform designed to analyze con
 ## Project Structure
 
 ```
-biztel-ai/
+conversa-ai/
 ├── app/
 │   ├── __init__.py
 │   ├── main.py                    # FastAPI application entry point
@@ -264,8 +264,8 @@ The system expects a JSON file with the following structure:
 
 1. **Clone and navigate to project**
    ```bash
-   git clone https://github.com/yourusername/biztel-ai.git
-   cd biztel-ai
+   git clone https://github.com/yourusername/conversa-ai.git
+   cd conversa-ai
    ```
 
 2. **Add your dataset**
@@ -286,10 +286,10 @@ The system expects a JSON file with the following structure:
 
 ```bash
 # Build the image
-docker build -t biztel-ai .
+docker build -t conversa-ai .
 
 # Run the container
-docker run -p 8000:8000 -v $(pwd)/data:/app/data biztel-ai
+docker run -p 8000:8000 -v $(pwd)/data:/app/data conversa-ai
 ```
 
 ## Usage Examples
@@ -472,6 +472,6 @@ uvicorn app.main:app --port 8001
 
 **Built for enterprise conversational data analysis**
 
-[⭐ Star this repo](https://github.com/yourusername/biztel-ai) • [🐛 Report Bug](https://github.com/yourusername/biztel-ai/issues) • [💡 Request Feature](https://github.com/yourusername/biztel-ai/issues)
+[⭐ Star this repo](https://github.com/yourusername/conversa-ai) • [🐛 Report Bug](https://github.com/yourusername/conversa-ai/issues) • [💡 Request Feature](https://github.com/yourusername/conversa-ai/issues)
 
 </div>
