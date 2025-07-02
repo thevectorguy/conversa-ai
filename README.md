@@ -4,7 +4,7 @@
 
 **Enterprise-grade conversational data analysis platform powered by advanced AI and machine learning**
 
-<a href="#" target="_blank">
+<a href="https://9fbb-223-190-82-81.ngrok-free.app" target="_blank">
   <img src="https://img.shields.io/badge/Try%20Live%20Demo-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Try Live Demo" height="50">
 </a>
 
@@ -43,29 +43,56 @@ ConversaAI is a sophisticated, production-ready platform designed to analyze con
 - **Performance Optimization**: Identify conversation patterns that lead to better outcomes
 - **Research & Development**: Extract insights from conversational data for product improvement
 
-## Features & Highlights
+## Assignment Implementation & Solution Approach
 
-### Core Technology Stack
-- **Backend Framework**: FastAPI with async/await for high-performance API development
-- **AI/ML Libraries**: Hugging Face Transformers, TextBlob for natural language processing
-- **Data Processing**: Pandas and NumPy with vectorized operations for efficient data manipulation
-- **Authentication**: JWT tokens with bcrypt password hashing for secure user management
-- **Frontend**: Modern HTML5/CSS3/JavaScript with Tailwind CSS for responsive design
-- **Data Storage**: JSON-based with extensible architecture for SQL database integration
+### Task 1: Data Ingestion & Preprocessing ✅
+- **Implementation**: Built object-oriented `DataProcessor` class with modular pipeline architecture
+- **Approach**: Used Pandas for data manipulation, implemented custom validation classes for data integrity
+- **Features**: Missing value handling, duplicate detection, text preprocessing with tokenization and stopword removal
+- **OOP Design**: Separate classes for `DataLoader`, `DataCleaner`, and `DataTransformer` following SOLID principles
 
-### Architecture Excellence
-- **Object-Oriented Design**: Modular, reusable components following SOLID principles
-- **Asynchronous Processing**: Non-blocking I/O operations for optimal performance
-- **Error Handling**: Comprehensive exception management with structured logging
-- **Type Safety**: Full type hints with Pydantic validation for data integrity
-- **API Documentation**: Auto-generated documentation with OpenAPI/Swagger
+### Task 2: Exploratory Data Analysis ✅
+- **Implementation**: Statistical analysis at article and agent levels using custom `StatisticsCalculator`
+- **Models Used**: DistilBERT (`distilbert-base-uncased-finetuned-sst-2-english`) for sentiment analysis
+- **Approach**: Advanced EDA with agent-wise sentiment distribution, message patterns, and conversation dynamics
+- **LLM Integration**: Hugging Face transformers for transcript summarization and article URL extraction
+- **Visualizations**: Comprehensive statistical summaries and insights generation
 
-### Production-Ready Features
-- **Containerization**: Docker support with multi-stage builds and security best practices
-- **Monitoring**: Health checks, performance metrics, and structured logging
-- **Security**: Input validation, CORS configuration, and secure HTTP headers
-- **Scalability**: Horizontal scaling ready with load balancer support
-- **CI/CD Integration**: GitHub Actions compatible with automated testing and deployment
+### Task 3: REST API Development ✅
+- **Framework**: FastAPI with async processing for optimal performance and scalability
+- **Endpoints Implemented**: 
+  - `/api/summary` - Dataset summary with LLM-generated insights
+  - `/api/transform` - Real-time data transformation
+  - `/api/analyze` - Transcript analysis (article URL, message counts, agent sentiments)
+- **Features**: Comprehensive error handling, structured logging, and auto-generated API documentation
+
+### Task 4: OOP Implementation ✅
+- **Classes**: `DataProcessor`, `LLMAnalyzer`, `SentimentAnalyzer`, `DataLoader`, `DataCleaner`
+- **Design Pattern**: Modular, reusable components with clear separation of concerns
+- **Principles**: Inheritance, encapsulation, and polymorphism implemented throughout the codebase
+
+### Task 5: Optimization & Performance ✅
+- **Techniques**: Vectorized NumPy/Pandas operations, async processing with ThreadPoolExecutor
+- **Performance**: Memory-efficient data handling, optimized API response times, bottleneck analysis
+- **Scalability**: Asynchronous processing for handling multiple concurrent requests
+
+### Bonus Points Achieved 🏆
+- ✅ **Authentication System**: JWT-based authentication with role-based access control
+- ✅ **Parallel Processing**: Multiprocessing implementation for sentiment analysis and data transformation
+- ✅ **Docker Containerization**: Complete Docker setup with docker-compose for production deployment
+- ✅ **CI/CD Pipeline**: Render deployment configuration ready (limited by 512MB RAM on free tier)
+
+### AI Models & Technologies Used 🤖
+- **Primary LLM**: DistilBERT for sentiment analysis and text classification
+- **Text Processing**: Hugging Face Transformers pipeline for advanced NLP tasks
+- **Sentiment Analysis**: Custom hybrid implementation combining TextBlob and DistilBERT
+- **Performance Optimization**: Async processing with caching for production-grade performance
+
+### Deployment & CI/CD 🚀
+- **Current Status**: Successfully deployed using ngrok for demonstration
+- **Render Integration**: Full CI/CD pipeline configured - simply connect GitHub repo to Render for automatic deployment
+- **Docker Ready**: Complete containerization with multi-stage builds and security best practices
+- **Limitation**: Render free tier (512MB RAM) insufficient for full model loading - requires paid tier for production deployment
 
 ## Quick Start
 
