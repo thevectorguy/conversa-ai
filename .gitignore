@@ -145,8 +145,10 @@ docker-compose.override.yml
 # data/*.json
 # data/*.csv
 
-# Model files
-models/
+# Model files (ML models, not app schemas)
+# Ignore ML model files in root or data directory
+/models/
+data/models/
 *.pkl
 *.joblib
 
